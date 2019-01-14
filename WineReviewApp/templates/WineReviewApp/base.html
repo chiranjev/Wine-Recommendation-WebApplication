@@ -1,0 +1,37 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block bootstrap3_content %}
+<div class="container">
+    <nav  class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'review_list' %}">Wine Recommender</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'wine_list' %}">Wine list</a></li>
+                <li><a href="{% url 'review_list' %}">Home</a></li>
+            </ul>
+             <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_review_list' username=user.username %}">Hello {{ user.username }}</a></li>
+                    <li><a href="{% url 'user_recommendation_list' %}">Wine suggestions</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Register</a></li>
+                {% endif %}
+              </ul>
+        </div>
+    </nav>
+    
+    <h1>{% block title %}(no title){% endblock %}</h1>
+
+    {% bootstrap_messages %}
+
+    {% block content %}(no content){% endblock %}
+</div>
+
+{% endblock %}

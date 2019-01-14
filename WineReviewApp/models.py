@@ -1,13 +1,12 @@
 from django.db import models
 import numpy as np
 
-
 class Wine(models.Model):
     name = models.CharField(max_length=200)
     
-    def average_rating(self):
-        all_ratings = map(lambda x: x.rating, self.review_set.all())
-        return np.mean(all_ratings)
+    # def average_rating(self):
+    #     all_ratings = map(lambda x: x.rating, self.review_set.all())
+    #     return np.mean(all_ratings)
         
     def __unicode__(self):
         return self.name
@@ -21,7 +20,7 @@ class Review(models.Model):
         (4, '4'),
         (5, '5'),
     )
-    wine = models.ForeignKey(Wine)
+    wine = models.ForeignKey(Wine,on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published')
     user_name = models.CharField(max_length=100)
     comment = models.CharField(max_length=200)
